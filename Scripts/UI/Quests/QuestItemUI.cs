@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using RPG.Quests;
+using TMPro;
+using UnityEngine;
+
+public class QuestItemUI : MonoBehaviour
+{
+    [SerializeField] public TextMeshProUGUI title;
+    [SerializeField] TextMeshProUGUI progress;
+
+    QuestStatus status;
+
+    public void Setup(QuestStatus status)
+    {
+        QuestList quest = GameObject.FindGameObjectWithTag("Player").GetComponent<QuestList>();
+
+        this.status = status;
+        title.text = status.GetQuest().GetTitle();
+        // progress.text = "";
+        
+        progress.text = status.GetCompletedCount() + "/" + status.GetQuest().GetObjectiveCount();
+        // if (status.questAlreadyCompleted)
+        // {
+        //     title.fontStyle = TMPro.FontStyles.Strikethrough;
+        // }
+    }
+
+    public QuestStatus GetQuestStatus()
+    {
+        return status;
+    }
+}
